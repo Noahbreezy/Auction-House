@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Tag(name = "Auctions", description = "Operations related to auctions")
-@CrossOrigin(origins = "http://localhost:5173")
 @Validated
 @RestController
 @RequestMapping("/api/v1/auctions")

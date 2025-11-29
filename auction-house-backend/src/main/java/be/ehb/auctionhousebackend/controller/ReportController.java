@@ -21,7 +21,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Tag(name = "Reports", description = "Auction performance and revenue reports")
-@CrossOrigin(origins = "http://localhost:5173")
 @Validated
 @RestController
 @RequestMapping("/api/v1/reports")

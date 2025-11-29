@@ -14,7 +14,6 @@ import java.util.List;
 
 
 @Tag(name = "Persons", description = "Operations related to users/persons")
-@CrossOrigin(origins = "http://localhost:5173")
 @Validated
 @RestController
 @RequestMapping("/api/v1/persons")

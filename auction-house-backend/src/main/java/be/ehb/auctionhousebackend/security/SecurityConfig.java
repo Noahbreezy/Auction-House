@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.header.writers.XXssProtectionHeaderWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -39,20 +40,32 @@ public class SecurityConfig {
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
     }
 
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // 👈 Use same CORS source
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(registry -> registry
 
+                // SECURITY: Handle unauthorized access gracefully
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                        .accessDeniedHandler(jwtAccessDeniedHandler)
+                )
+
+                // SECURITY: Prevent Clickjacking and XSS
+                .headers(headers -> headers
+                        .frameOptions(frameOptions -> frameOptions.deny())
+                        .xssProtection(xss -> xss.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK))
+                )
+                .authorizeHttpRequests(registry -> registry
                         // Auction endpoints
                         .requestMatchers(HttpMethod.GET, "/api/v1/auctions/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auctions").hasAnyRole("ADMIN", "AUCTIONEER")
                         .requestMatchers(HttpMethod.GET, "/api/v1/auctions/*/bids").hasAnyRole("USER", "ADMIN", "AUCTIONEER")
                         .requestMatchers(HttpMethod.POST, "/api/v1/auctions/*/bids").hasAnyRole("USER", "ADMIN", "AUCTIONEER")
-
 
                         // Auth endpoints
                         .requestMatchers("/api/v1/auth/**").permitAll()
@@ -66,13 +79,12 @@ public class SecurityConfig {
 
                         // Reports & Monitoring & Swagger
                         .requestMatchers("/api/v1/reports/**").hasRole("ADMIN")
-                        .requestMatchers("/actuator/**").hasRole("ADMIN")
+                        .requestMatchers("/actuator/**").hasRole("ADMIN") // SECURING MONITORING
                         .requestMatchers(
                                 "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -81,14 +93,13 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // Your React app
+        config.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
         config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
-        config.setExposedHeaders(Collections.singletonList("Authorization"));
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/v1/**", config); // All API routes
+        source.registerCorsConfiguration("/api/v1/**", config);
         return source;
     }
 

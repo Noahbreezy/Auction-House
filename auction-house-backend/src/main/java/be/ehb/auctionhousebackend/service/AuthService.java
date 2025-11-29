@@ -63,7 +63,7 @@ public class AuthService {
         String token = jwtUtil.generateToken(
                 user.getEmail(),
                 user.getRole().getName().name(),
-                user.getName()  // 👈 Pass name to JWT
+                user.getName()
         );
         return token;
     }
