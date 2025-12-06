@@ -73,7 +73,7 @@ class AuctionServiceTest {
 
 
         assertThrows(AuctionClosedException.class, () -> {
-            auctionService.createAuction(dto);
+            auctionService.save(dto);
         });
     }
 
@@ -92,7 +92,7 @@ class AuctionServiceTest {
 
         mockLoggedInUser("test@auction.com", auctioneer);
 
-        auctionService.createAuction(dto);
+        auctionService.save(dto);
 
         verify(auctionRepository).save(any(Auction.class));
     }

@@ -13,14 +13,33 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+//@Component
+//public class JwtAccessDeniedHandler implements AccessDeniedHandler {
+//    @Override
+//    public void handle(HttpServletRequest request, HttpServletResponse response,
+//                       AccessDeniedException accessDeniedException) throws IOException {
+//        ErrorResponse error = new ErrorResponse("Forbidden: Access is denied", HttpStatus.FORBIDDEN.value());
+//        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+//        response.setStatus(HttpStatus.FORBIDDEN.value());
+//        new ObjectMapper().writeValue(response.getOutputStream(), error);
+//    }
+//}
+
 @Component
 public class JwtAccessDeniedHandler implements AccessDeniedHandler {
+
+    private final ObjectMapper objectMapper;
+
+    public JwtAccessDeniedHandler(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response,
                        AccessDeniedException accessDeniedException) throws IOException {
         ErrorResponse error = new ErrorResponse("Forbidden: Access is denied", HttpStatus.FORBIDDEN.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpStatus.FORBIDDEN.value());
-        new ObjectMapper().writeValue(response.getOutputStream(), error);
+        objectMapper.writeValue(response.getOutputStream(), error);
     }
 }
