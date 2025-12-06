@@ -1,0 +1,243 @@
+/* css/BidCard.css */
+.bid-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.8rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 1px solid #e5e7eb;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.auction-status {
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.35rem 0.8rem;
+  border-radius: 20px;
+}
+
+.status-active {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.status-closed {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.price-details {
+  margin-bottom: 1.8rem;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+}
+
+.price-row span:first-child {
+  color: #6b7280;
+}
+
+.price-value {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.countdown-section {
+  margin-bottom: 1.8rem;
+}
+
+.countdown-section p {
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.countdown-timer {
+  display: flex;
+  gap: 1rem;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f3f4f6;
+  padding: 0.6rem;
+  border-radius: 8px;
+  min-width: 60px;
+}
+
+.countdown-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.countdown-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.expired-countdown {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  padding: 0.8rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.bid-input-group {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.input-with-label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-with-label label {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 0.4rem;
+}
+
+.bid-input-group input {
+  padding: 0.9rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.bid-input-group input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.place-bid-btn {
+  background-color: #0ea5e9;
+  color: white;
+  border: none;
+  padding: 0 1.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+  align-self: flex-end;
+  height: 48px;
+}
+
+.place-bid-btn:hover {
+  background-color: #0284c7;
+}
+
+.place-bid-btn:disabled {
+  background-color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.quick-bid-buttons {
+  margin-bottom: 1.2rem;
+}
+
+.quick-bid-buttons p {
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.quick-bid-options {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.quick-bid {
+  background-color: #f3f4f6;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  color: #1f2937;
+}
+
+.quick-bid:hover {
+  background-color: #e5e7eb;
+}
+
+.bid-disabled-overlay {
+  background-color: #f9fafb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  color: #6b7280;
+  margin-top: 1rem;
+  border: 1px dashed #d1d5db;
+}
+
+.bid-disabled-overlay p {
+  margin: 0;
+}
+
+.auction-closed-message {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  padding: 1.2rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+.error-message {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
