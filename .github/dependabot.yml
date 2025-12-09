@@ -5,12 +5,14 @@
 
 version: 2
 updates:
-  open-pull-requests-limit: 10
   - package-ecosystem: "maven"
     directory: "/auction-house-backend/"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 30
+
   - package-ecosystem: "npm"
     directory: "/auction-house-ui/frontend/"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 30
