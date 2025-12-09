@@ -5,11 +5,11 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm"
+  - package-ecosystem: "maven"
     directory: "/auction-house-backend/"
     schedule:
       interval: "daily"
-  - package-ecosystem: "maven"
+  - package-ecosystem: "npm"
     directory: "/auction-house-ui/frontend/"
     schedule:
       interval: "daily"
