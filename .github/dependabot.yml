@@ -5,6 +5,7 @@
 
 version: 2
 updates:
+  - open-pull-requests-limit: 10
   - package-ecosystem: "maven"
     directory: "/auction-house-backend/"
     schedule:
